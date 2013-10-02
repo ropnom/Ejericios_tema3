@@ -22,7 +22,9 @@ public class clases_esenciales {
 		
 		//EX 5
 		String imagen = path + "Lena.jpg";
-		
+		int bytes = Ficheros.ContarBytes(imagen);
+		System.out.println("La imagen "+imagen +" contiene : "+ bytes+" bytes." );
+		Ficheros.Escribirfichero(bytes, "Lena.jpg", Registro);
 	}
 
 }

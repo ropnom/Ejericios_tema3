@@ -9,7 +9,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Ficheros {
 
@@ -62,6 +64,61 @@ public class Ficheros {
 		}
 	}
 
+	public static ArrayList<String> Leerfichero(String direccion) {
+		
+		ArrayList<String> lineas = new ArrayList<String>();
+		File archivo = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+
+		try {
+			// abrimos el fichero
+			archivo = new File(direccion);
+			fr = new FileReader(archivo);
+			// creamso un buffer para poder leer linea a linea
+			br = new BufferedReader(fr);
+
+			// Lectura del fichero
+			String linea;
+			
+			while ((linea = br.readLine()) != null) {
+				lineas.add(linea);
+				
+			}
+		} catch (Exception e) {
+			// Printamos las excepciones que aparezcan
+			e.printStackTrace();
+		} finally {
+			// Cerramos el File
+			try {
+				if (null != fr) {
+					fr.close();
+				}
+			} catch (Exception e2) {
+				// printamos excepciones en el cierre del fichero
+				e2.printStackTrace();
+			}
+		}
+
+		return (lineas);
+
+	}
+
+	public static int ValormaxReg(String direccion)
+	{
+		int valormax = 0;
+		List<String> lineas = Leerfichero(direccion);
+		//leemos el archivo y calculamos cual es el valor mayor
+		
+		for (int i = 0;i< lineas.size();i++)
+		{
+			//Make split
+			//lineas[i].
+		}
+		
+		
+		return(valormax);
+	}
 	public static int ContarBytes(String direccion) {
 		File archivo = null;
 		InputStream fr = null;
@@ -94,8 +151,8 @@ public class Ficheros {
 				e2.printStackTrace();
 			}
 		}
-		
-		return(count);
+
+		return (count);
 	}
 
 	public static int ContarCaracteres(String Direccion) {
@@ -135,20 +192,23 @@ public class Ficheros {
 		return (cont);
 	}
 
-	public static void Escribirfichero(int caracteres, String nombre, String log) {
+	public static void Escribirfichero(int caracteres, String nombre,
+			String log, boolean reescribir) {
 		FileWriter archivo = null;
 		BufferedWriter bw = null;
 
 		try {
 
-			archivo = new FileWriter(log);
+			archivo = new FileWriter(log, reescribir);
 			bw = new BufferedWriter(archivo);
 
 			Date dt = new Date();
 			SimpleDateFormat format = new SimpleDateFormat(
 					"dd/MM/yyyy HH:mm:ss");
+			if (reescribir)
+				bw.write("\n");
 
-			bw.write(format.format(dt) + " - " + caracteres + " - " + nombre);
+			bw.write(format.format(dt) + "-" + caracteres + "-" + nombre);
 			System.out.println("DEBUG: " + format.format(dt) + " - "
 					+ caracteres + " - " + nombre);
 

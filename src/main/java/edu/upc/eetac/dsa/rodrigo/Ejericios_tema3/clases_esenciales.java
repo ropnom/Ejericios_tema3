@@ -18,13 +18,17 @@ public class clases_esenciales {
 		//EX 4
 		String Registro = path + "registro.txt";
 		int caracteres = Ficheros.ContarCaracteres(Direccion);
-		Ficheros.Escribirfichero(caracteres, "Numeros.txt", Registro);
+		Ficheros.Escribirfichero(caracteres, "Numeros.txt", Registro, false);
 		
 		//EX 5
 		String imagen = path + "Lena.jpg";
 		int bytes = Ficheros.ContarBytes(imagen);
 		System.out.println("La imagen "+imagen +" contiene : "+ bytes+" bytes." );
-		Ficheros.Escribirfichero(bytes, "Lena.jpg", Registro);
+		Ficheros.Escribirfichero(bytes, "Lena.jpg", Registro, true);
+		
+		//EX 6
+		
+		
 	}
 
 }

@@ -1,26 +1,35 @@
 package Clases;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.Reader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Ficheros {
 
 	static void CheckInt(int num) throws BigNumberException {
 		if (num > 1000) {
-			throw new BigNumberException();
+			throw new BigNumberException(num);
 		}
 	}
 
 	public static void LeerficheroPrint(String Direccion) {
 		File archivo = null;
-		FileReader fr = null;
-		BufferedReader br = null;
+		InputStream fr = null;
+		BufferedInputStream br = null;
 
 		try {
 			// abrimos el fichero
 			archivo = new File(Direccion);
-			fr = new FileReader(archivo);
+			fr = new InputStream (archivo);
 			// creamso un buffer para poder leer linea a linea
-			br = new BufferedReader(fr);
+			br = new BufferedInputStream(fr);
 
 			// Lectura del fichero
 			String linea;
@@ -52,33 +61,83 @@ public class Ficheros {
 		}
 	}
 
-	public static void Escribirfichero(int caracteres, String nombre)
+	public static void ContarBytes(String direccion)
 	{
-		DataOutputStream miDataStream;
-	    FileOutputStream miFileStream;
-	    BufferedOutputStream miBufferStream;
+		
+	}
+	
+	public static int ContarCaracteres(String Direccion) {
+		
+		FileReader archivo= null;
+		BufferedReader br = null;
+		String line = null;
+		int cont = 0;
+		
+		try {
+			
+			archivo = new FileReader(Direccion);
+			br = new BufferedReader(archivo);
+			
+			while ((line = br.readLine()) != null)
+				cont += line.length();
+			br.close();
 
-	    // Obtiene un controlador de fichero
-	    miFileStream = new FileOutputStream( "/home/ropnom/dsa_proyects/Ejericios_tema3/registro.txt" );
-	    // Encadena un stream de salida con buffer (por eficiencia)
-	    miBufferStream = new BufferedOutputStream( miFileStream );
-	    // Encadena un fichero de salida de datos
-	    miDataStream = new DataOutputStream( miBufferStream );
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				if (null != br) {
+					br.close();
+				}
+				if( null != archivo)
+				{					
+					archivo.close();
+				}
+			} catch (Exception e2) {
+				// printamos excepciones en el cierre del fichero
+				e2.printStackTrace();
+			}
+			
+		}
+		
+		return(cont);
+	}
 
-	    // Ahora se pueden utilizar los dos streams de entrada para
-	    // acceder al fichero (si se quiere)
-	    Date
-	    String fecha = "";
-	    String nombre = "";
-	    miBufferStream.write( fecha );
-	    miDataStream.writeInt( caracteres );
-	    miBufferStream.write( nombre);
+	public static void Escribirfichero(int caracteres, String nombre, String log)
+	{
+		FileWriter archivo= null;
+		BufferedWriter bw = null;
+		
+		try{
+			
+			archivo = new FileWriter(log);
+			bw = new BufferedWriter(archivo);
+			
+			Date dt = new Date();
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-	    // Cierra el fichero de datos explícitamente. Siempre se cierra 
-	    // primero el fichero stream de mayor nivel
-	    miDataStream.close();
-	    miBufferStream.close();
-	    miFileStream.close();
+			bw.write(format.format(dt)+" - "+caracteres+" - "+nombre);
+			System.out.println("DEBUG: "+format.format(dt)+" - "+caracteres+" - "+nombre);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				if (null != bw) {
+					bw.close();
+				}
+				if( null != archivo)
+				{					
+					archivo.close();
+				}
+			} catch (Exception e2) {
+				// printamos excepciones en el cierre del fichero
+				e2.printStackTrace();
+			}
+		}
 		
 	}
 }

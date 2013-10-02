@@ -14,6 +14,7 @@ public class App
     	System.out.println( "| Este es la aplicacion de los ejericios del tema 3: |" );
     	
     	Objetos.ejericios1();
+    	
     	System.out.println( "------------------------------------------------------" );
     	System.out.println( "******************************************************" );
     	System.out.println( "------------------------------------------------------" );

@@ -4,10 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,16 +20,17 @@ public class Ficheros {
 	}
 
 	public static void LeerficheroPrint(String Direccion) {
+
 		File archivo = null;
-		InputStream fr = null;
-		BufferedInputStream br = null;
+		FileReader fr = null;
+		BufferedReader br = null;
 
 		try {
 			// abrimos el fichero
 			archivo = new File(Direccion);
-			fr = new InputStream (archivo);
+			fr = new FileReader(archivo);
 			// creamso un buffer para poder leer linea a linea
-			br = new BufferedInputStream(fr);
+			br = new BufferedReader(fr);
 
 			// Lectura del fichero
 			String linea;
@@ -61,23 +62,54 @@ public class Ficheros {
 		}
 	}
 
-	public static void ContarBytes(String direccion)
-	{
+	public static int ContarBytes(String direccion) {
+		File archivo = null;
+		InputStream fr = null;
+		BufferedInputStream br = null;
+		int count = 0;
+
+		try {
+			// abrimos el fichero
+			archivo = new File(direccion);
+			fr = new FileInputStream(archivo);
+			// creamso un buffer para poder leer linea a linea
+			br = new BufferedInputStream(fr);
+
+			count = br.available();
+
+		} catch (Exception e) {
+			// Printamos las excepciones que aparezcan
+			e.printStackTrace();
+		} finally {
+			// Cerramos el File
+			try {
+				if (null != fr) {
+					fr.close();
+				}
+				if (null != br) {
+					br.close();
+				}
+			} catch (Exception e2) {
+				// printamos excepciones en el cierre del fichero
+				e2.printStackTrace();
+			}
+		}
 		
+		return(count);
 	}
-	
+
 	public static int ContarCaracteres(String Direccion) {
-		
-		FileReader archivo= null;
+
+		FileReader archivo = null;
 		BufferedReader br = null;
 		String line = null;
 		int cont = 0;
-		
+
 		try {
-			
+
 			archivo = new FileReader(Direccion);
 			br = new BufferedReader(archivo);
-			
+
 			while ((line = br.readLine()) != null)
 				cont += line.length();
 			br.close();
@@ -85,52 +117,50 @@ public class Ficheros {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+
 			try {
 				if (null != br) {
 					br.close();
 				}
-				if( null != archivo)
-				{					
+				if (null != archivo) {
 					archivo.close();
 				}
 			} catch (Exception e2) {
 				// printamos excepciones en el cierre del fichero
 				e2.printStackTrace();
 			}
-			
+
 		}
-		
-		return(cont);
+
+		return (cont);
 	}
 
-	public static void Escribirfichero(int caracteres, String nombre, String log)
-	{
-		FileWriter archivo= null;
+	public static void Escribirfichero(int caracteres, String nombre, String log) {
+		FileWriter archivo = null;
 		BufferedWriter bw = null;
-		
-		try{
-			
+
+		try {
+
 			archivo = new FileWriter(log);
 			bw = new BufferedWriter(archivo);
-			
-			Date dt = new Date();
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-			bw.write(format.format(dt)+" - "+caracteres+" - "+nombre);
-			System.out.println("DEBUG: "+format.format(dt)+" - "+caracteres+" - "+nombre);
-			
-			
+			Date dt = new Date();
+			SimpleDateFormat format = new SimpleDateFormat(
+					"dd/MM/yyyy HH:mm:ss");
+
+			bw.write(format.format(dt) + " - " + caracteres + " - " + nombre);
+			System.out.println("DEBUG: " + format.format(dt) + " - "
+					+ caracteres + " - " + nombre);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+
 			try {
 				if (null != bw) {
 					bw.close();
 				}
-				if( null != archivo)
-				{					
+				if (null != archivo) {
 					archivo.close();
 				}
 			} catch (Exception e2) {
@@ -138,6 +168,6 @@ public class Ficheros {
 				e2.printStackTrace();
 			}
 		}
-		
+
 	}
 }

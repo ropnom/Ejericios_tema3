@@ -5,26 +5,80 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Ficheros {
-	
-	public static void FuncionEx6(String Fichero)
-	{
+
+	public static void FuncionEx6(String Fichero) {
 		ArrayList<String> archivo = Leerfichero(Fichero);
-		SeleccionarMayor(archivo);		
+		SeleccionarMayor(archivo);
 	}
-	
+
 	private static void CheckInt(int num) throws BigNumberException {
 		if (num > 1000) {
 			throw new BigNumberException(num);
 		}
+	}
+
+	public static void Ex7() {
+
+		FileOutputStream fos;
+		FileInputStream fis;
+		ObjectOutputStream out;
+		ObjectInputStream in;
+
+		try {
+
+			fos = new FileOutputStream("fichero.bin");
+			fis = new FileInputStream("fichero.bin");
+			out = new ObjectOutputStream(fos);
+			in = new ObjectInputStream(fis);
+
+			Dato o1 = new Dato(1,"objeto1",'t');
+			Dato o2 = new Dato(2,"objeto2",'y');
+			
+			o1.WriteObjet();
+			o2.WriteObjet();
+
+			// Escribir el objeto en el fichero
+			out.writeObject(o1);
+			out.writeObject(o2);
+
+			// Leer el objeto del fichero (en el mismo orden !!)
+			Dato o3 = (Dato) in.readObject();
+			Dato o4 = (Dato) in.readObject();
+			o3.WriteObjet();
+			o4.WriteObjet();
+			
+		} catch (Exception e) {
+			// Printamos las excepciones que aparezcan
+			e.printStackTrace();
+		} finally {
+			// Cerramos el File
+			try {
+				
+				//Duda ... por queno me deja cerrarlos.
+				/*
+				if (null != out) {
+					out.close();
+				}
+				*/
+				
+			} catch (Exception e2) {
+				// printamos excepciones en el cierre del fichero
+				e2.printStackTrace();
+			}
+		}
+
 	}
 
 	public static void LeerficheroPrint(String Direccion) {
@@ -70,26 +124,24 @@ public class Ficheros {
 		}
 	}
 
-	private static void SeleccionarMayor(ArrayList<String> lista)
-	{
+	private static void SeleccionarMayor(ArrayList<String> lista) {
 		int i = 0;
 		int mayor = 0;
 		String[] splitado;
-		while(i<lista.size())
-		{
+		while (i < lista.size()) {
 			splitado = lista.get(i).split("-");
-			int test =  Integer.parseInt(splitado[1]);
-			if(test>mayor)
+			int test = Integer.parseInt(splitado[1]);
+			if (test > mayor)
 				mayor = test;
-			
-			i++;			
+
+			i++;
 		}
-		
-		System.out.println("El valor maximo encontrado es: "+ mayor);
+
+		System.out.println("El valor maximo encontrado es: " + mayor);
 	}
-	
+
 	public static ArrayList<String> Leerfichero(String direccion) {
-		
+
 		ArrayList<String> lineas = new ArrayList<String>();
 		File archivo = null;
 		FileReader fr = null;
@@ -104,10 +156,10 @@ public class Ficheros {
 
 			// Lectura del fichero
 			String linea;
-			
+
 			while ((linea = br.readLine()) != null) {
 				lineas.add(linea);
-				
+
 			}
 		} catch (Exception e) {
 			// Printamos las excepciones que aparezcan
@@ -128,21 +180,19 @@ public class Ficheros {
 
 	}
 
-	public static int ValormaxReg(String direccion)
-	{
+	public static int ValormaxReg(String direccion) {
 		int valormax = 0;
 		List<String> lineas = Leerfichero(direccion);
-		//leemos el archivo y calculamos cual es el valor mayor
-		
-		for (int i = 0;i< lineas.size();i++)
-		{
-			//Make split
-			//lineas[i].
+		// leemos el archivo y calculamos cual es el valor mayor
+
+		for (int i = 0; i < lineas.size(); i++) {
+			// Make split
+			// lineas[i].
 		}
-		
-		
-		return(valormax);
+
+		return (valormax);
 	}
+
 	public static int ContarBytes(String direccion) {
 		File archivo = null;
 		InputStream fr = null;

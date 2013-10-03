@@ -1,5 +1,6 @@
 package edu.upc.eetac.dsa.rodrigo.Ejericios_tema3;
 
+import Clases.CuentaAtras;
 import Clases.Ficheros;
 
 public class clases_esenciales {
@@ -33,6 +34,18 @@ public class clases_esenciales {
 
 		// Ex 7  Ejemplos de Serializable
 		Ficheros.Ex7();
+		
+		
+		//Ex 8
+		CuentaAtras contador1 = new CuentaAtras("ID1",22);
+		CuentaAtras contador2= new CuentaAtras("ID2",15);
+		CuentaAtras contador3 = new CuentaAtras("ID3",33);
+		
+		contador1.start();
+		contador2.start();
+		contador3.start();
+		
+		//Ex 9
 
 	}
 

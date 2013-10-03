@@ -14,8 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Ficheros {
-
-	static void CheckInt(int num) throws BigNumberException {
+	
+	public static void FuncionEx6(String Fichero)
+	{
+		ArrayList<String> archivo = Leerfichero(Fichero);
+		SeleccionarMayor(archivo);		
+	}
+	
+	private static void CheckInt(int num) throws BigNumberException {
 		if (num > 1000) {
 			throw new BigNumberException(num);
 		}
@@ -64,6 +70,24 @@ public class Ficheros {
 		}
 	}
 
+	private static void SeleccionarMayor(ArrayList<String> lista)
+	{
+		int i = 0;
+		int mayor = 0;
+		String[] splitado;
+		while(i<lista.size())
+		{
+			splitado = lista.get(i).split("-");
+			int test =  Integer.parseInt(splitado[1]);
+			if(test>mayor)
+				mayor = test;
+			
+			i++;			
+		}
+		
+		System.out.println("El valor maximo encontrado es: "+ mayor);
+	}
+	
 	public static ArrayList<String> Leerfichero(String direccion) {
 		
 		ArrayList<String> lineas = new ArrayList<String>();

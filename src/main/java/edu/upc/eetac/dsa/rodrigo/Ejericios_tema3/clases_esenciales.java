@@ -26,9 +26,10 @@ public class clases_esenciales {
 		System.out.println("La imagen "+imagen +" contiene : "+ bytes+" bytes." );
 		Ficheros.Escribirfichero(bytes, "Lena.jpg", Registro, true);
 		
-		//EX 6
+		//EX 6		
+		Ficheros.FuncionEx6(Registro);
 		
-		
+		//Ex 7
 	}
 
 }

@@ -1,6 +1,9 @@
 package edu.upc.eetac.dsa.rodrigo.Ejericios_tema3;
 
-import Clases.*;
+import Clases.Arbol;
+import Clases.Circulo;
+import Clases.Cuadrado;
+import Clases.Forma;
 
 public class Objetos {
 	

@@ -1,14 +1,34 @@
 package Clases;
 
+import java.util.concurrent.locks.Lock;
+
 public class CuentaAtras extends Thread {
 
+	static String ultimaEscritura = "No hay una ultima escritura";
+	static int counthread = 0;
 	String ID;
 	int valorinical;
+	
+	private Lock lock ;
 
 	public CuentaAtras(String iD, int valorinical) {
 		super();
 		ID = iD;
 		this.valorinical = valorinical;
+		
+		//Aqui peta !!
+		//lock.lock();
+		counthread++;
+		//lock.unlock();
+	}
+	
+	//Toda esta funcion peta por lso lock
+	private void WriteUltimaescritura()
+	{
+		lock.lock();
+		System.out.println(ultimaEscritura);
+		ultimaEscritura = "Ultima Escritura ID: "+ID+" - " +counthread+ " Thread Activos";
+		lock.unlock();
 	}
 
 	@Override
@@ -26,6 +46,8 @@ public class CuentaAtras extends Thread {
 					break;// seacabo el tiempo fin hilo
 
 				}
+				
+				WriteUltimaescritura();
 
 				System.out.println("ID Thread: " + ID + " Cuenta Atras: "
 						+ valorinical);// Muestro en pantalla el temporizador
@@ -37,6 +59,9 @@ public class CuentaAtras extends Thread {
 			e.printStackTrace();
 		} finally {
 			System.out.println("FIN DEL THREAD ID:" +ID);
+			lock.lock();
+			counthread--;
+			lock.unlock();
 
 		}
 	}

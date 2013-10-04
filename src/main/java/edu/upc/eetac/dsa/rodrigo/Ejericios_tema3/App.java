@@ -1,6 +1,5 @@
 package edu.upc.eetac.dsa.rodrigo.Ejericios_tema3;
 
-import Clases.*;
 
 /**
  * Hello world!

@@ -36,6 +36,8 @@ public class clases_esenciales {
 		// Ex 7 Ejemplos de Serializable
 		Ficheros.Ex7();
 
+		//ejecucionde 8 y 9 con modificaciones de 10
+		
 		// Ex 8 Ejmeplos clase thread
 		CuentaAtras contador1 = new CuentaAtras("ID1", 22);
 		CuentaAtras contador2 = new CuentaAtras("ID2", 15);
@@ -49,12 +51,18 @@ public class clases_esenciales {
 		CuentaRunnable run1 = new CuentaRunnable("ID4", 15);
 		CuentaRunnable run2 = new CuentaRunnable("ID5", 35);
 		CuentaRunnable run3 = new CuentaRunnable("ID6", 5);
-
+		
+		try {
 		(new Thread(run1)).start();
 		(new Thread(run2)).start();
 		(new Thread(run3)).start();
+		} catch (Exception e) {
+			// Printamos las excepciones que aparezcan
+			e.printStackTrace();
+	    }
 
 		// EX 10
+		//implementar modificaciones en ejericios 8-9
 
 	}
 

@@ -1,12 +1,13 @@
 package edu.upc.eetac.dsa.rodrigo.Ejericios_tema3;
 
 import Clases.CuentaAtras;
+import Clases.CuentaRunnable;
 import Clases.Ficheros;
 
 public class clases_esenciales {
 
 	public static void Ejericios2() {
-		
+
 		System.out
 				.println("------------------------------------------------------");
 		System.out.println("EX 1: ");
@@ -32,20 +33,28 @@ public class clases_esenciales {
 		// EX 6 Ejemplo de Split
 		Ficheros.FuncionEx6(Registro);
 
-		// Ex 7  Ejemplos de Serializable
+		// Ex 7 Ejemplos de Serializable
 		Ficheros.Ex7();
-		
-		
-		//Ex 8
-		CuentaAtras contador1 = new CuentaAtras("ID1",22);
-		CuentaAtras contador2= new CuentaAtras("ID2",15);
-		CuentaAtras contador3 = new CuentaAtras("ID3",33);
-		
+
+		// Ex 8 Ejmeplos clase thread
+		CuentaAtras contador1 = new CuentaAtras("ID1", 22);
+		CuentaAtras contador2 = new CuentaAtras("ID2", 15);
+		CuentaAtras contador3 = new CuentaAtras("ID3", 33);
+
 		contador1.start();
 		contador2.start();
 		contador3.start();
-		
-		//Ex 9
+
+		// Ex 9 Ejemplos interface Runnable
+		CuentaRunnable run1 = new CuentaRunnable("ID4", 15);
+		CuentaRunnable run2 = new CuentaRunnable("ID5", 35);
+		CuentaRunnable run3 = new CuentaRunnable("ID6", 5);
+
+		(new Thread(run1)).start();
+		(new Thread(run2)).start();
+		(new Thread(run3)).start();
+
+		// EX 10
 
 	}
 

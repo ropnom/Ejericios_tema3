@@ -33,7 +33,7 @@ public class Ficheros {
 
 		FileOutputStream fos;
 		FileInputStream fis;
-		ObjectOutputStream out;
+		ObjectOutputStream out = null;
 		ObjectInputStream in;
 
 		try {
@@ -43,9 +43,9 @@ public class Ficheros {
 			out = new ObjectOutputStream(fos);
 			in = new ObjectInputStream(fis);
 
-			Dato o1 = new Dato(1,"objeto1",'t');
-			Dato o2 = new Dato(2,"objeto2",'y');
-			
+			Dato o1 = new Dato(1, "objeto1", 't');
+			Dato o2 = new Dato(2, "objeto2", 'y');
+
 			o1.WriteObjet();
 			o2.WriteObjet();
 
@@ -58,21 +58,20 @@ public class Ficheros {
 			Dato o4 = (Dato) in.readObject();
 			o3.WriteObjet();
 			o4.WriteObjet();
-			
+
 		} catch (Exception e) {
 			// Printamos las excepciones que aparezcan
 			e.printStackTrace();
 		} finally {
 			// Cerramos el File
 			try {
-				
-				//Duda ... por queno me deja cerrarlos.
-				/*
+
+				// Duda ... por queno me deja cerrarlos.
+
 				if (null != out) {
 					out.close();
 				}
-				*/
-				
+
 			} catch (Exception e2) {
 				// printamos excepciones en el cierre del fichero
 				e2.printStackTrace();

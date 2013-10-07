@@ -39,18 +39,18 @@ public class clases_esenciales {
 		//ejecucionde 8 y 9 con modificaciones de 10
 		
 		// Ex 8 Ejmeplos clase thread
-		CuentaAtras contador1 = new CuentaAtras("ID1", 22);
-		CuentaAtras contador2 = new CuentaAtras("ID2", 15);
-		CuentaAtras contador3 = new CuentaAtras("ID3", 33);
+		CuentaAtras contador1 = new CuentaAtras("ID1", 5);
+		CuentaAtras contador2 = new CuentaAtras("ID2", 7);
+		CuentaAtras contador3 = new CuentaAtras("ID3", 11);
 
 		contador1.start();
 		contador2.start();
 		contador3.start();
 
 		// Ex 9 Ejemplos interface Runnable
-		CuentaRunnable run1 = new CuentaRunnable("ID4", 15);
-		CuentaRunnable run2 = new CuentaRunnable("ID5", 35);
-		CuentaRunnable run3 = new CuentaRunnable("ID6", 5);
+		CuentaRunnable run1 = new CuentaRunnable("ID4", 7);
+		CuentaRunnable run2 = new CuentaRunnable("ID5", 10);
+		CuentaRunnable run3 = new CuentaRunnable("ID6", 9);
 		
 		try {
 		(new Thread(run1)).start();
@@ -63,6 +63,7 @@ public class clases_esenciales {
 
 		// EX 10
 		//implementar modificaciones en ejericios 8-9
+		
 
 	}
 

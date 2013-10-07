@@ -1,40 +1,59 @@
 package Clases;
 
-import java.util.concurrent.locks.Lock;
 
 public class CuentaAtras extends Thread {
 
 	static String ultimaEscritura = "No hay una ultima escritura";
 	static int counthread = 0;
-	String ID;
-	int valorinical;
-	
-	private Lock lock ;
+
+	private String ID;
+	private int valorinical;
+
 
 	public CuentaAtras(String iD, int valorinical) {
 		super();
 		ID = iD;
 		this.valorinical = valorinical;
-		
-		//Aqui peta !!
-		//lock.lock();
-		counthread++;
-		//lock.unlock();
+
 	}
 	
-	//Toda esta funcion peta por lso lock
-	private void WriteUltimaescritura()
+	protected synchronized void counterincrement()
 	{
-		lock.lock();
+		counthread++;
+	}
+	protected synchronized void counterdecrement()
+	{
+		counthread--;
+	}
+
+	public static String getUltimaEscritura() {
+		return ultimaEscritura;
+	}
+
+	public synchronized static void setUltimaEscritura(String ultimaEscritura) {
+		CuentaAtras.ultimaEscritura = ultimaEscritura;
+	}
+
+	protected void Iniciarcounter() {	
+		
+		counterincrement();		
+	}	
+	
+	protected synchronized void Escribir()
+	{		
+		System.out.println("aqui esta el Lock");
+		System.out.println("dentro del Lock");
 		System.out.println(ultimaEscritura);
-		ultimaEscritura = "Ultima Escritura ID: "+ID+" - " +counthread+ " Thread Activos";
-		lock.unlock();
+		ultimaEscritura = "Ultima Escritura ID: " + ID + " - " + counthread
+				+ " Thread Activos";
+		
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("INICIO DEL THREAD ID:" +ID+" CUENTA ATRAS DE "+valorinical);
+		System.out.println("INICIO DEL THREAD ID:" + ID + " CUENTA ATRAS DE "
+				+ valorinical);
 
 		try {// si ocurre un error al dormir el proceso(sleep(999))
 
@@ -46,8 +65,8 @@ public class CuentaAtras extends Thread {
 					break;// seacabo el tiempo fin hilo
 
 				}
-				
-				WriteUltimaescritura();
+
+				Escribir();
 
 				System.out.println("ID Thread: " + ID + " Cuenta Atras: "
 						+ valorinical);// Muestro en pantalla el temporizador
@@ -58,11 +77,10 @@ public class CuentaAtras extends Thread {
 			// Printamos las excepciones que aparezcan
 			e.printStackTrace();
 		} finally {
-			System.out.println("FIN DEL THREAD ID:" +ID);
-			lock.lock();
-			counthread--;
-			lock.unlock();
-
+			System.out.println("FIN DEL THREAD ID:" + ID);
+			
+			counterdecrement();
+			
 		}
 	}
 
